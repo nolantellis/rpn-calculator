@@ -1,24 +1,21 @@
 package com.rpn.calculator.operation;
 
 import com.rpn.calculator.exception.InValidOperationException;
-import com.rpn.calculator.model.MyStack;
+import com.rpn.calculator.model.ValueStack;
 
-public class PushOperation extends Operation
-{
+public class PushOperation extends Operation {
 
-    String operand;
+	String operand;
 
-    public PushOperation(MyStack myStack, String operand, int inputPosition)
-    {
-        super(myStack,inputPosition);
-        this.operand = operand;
-    }
+	public PushOperation(ValueStack myStack, String operand, int inputPosition) {
+		super(myStack, inputPosition);
+		this.operand = operand;
+	}
 
-    @Override
-    protected void performOperation() throws InValidOperationException
-    {
+	@Override
+	protected void performOperation() throws InValidOperationException {
 
-        getMyStack().push(Double.parseDouble(operand));
-    }
+		getValueStack().push(Double.parseDouble(operand));
+	}
 
 }

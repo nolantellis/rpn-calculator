@@ -2,67 +2,60 @@ package com.rpn.calculator.operation;
 
 import com.rpn.calculator.exception.InValidOperationException;
 import com.rpn.calculator.exception.NoOperationException;
-import com.rpn.calculator.model.MyStack;
+import com.rpn.calculator.model.ValueStack;
 
-public abstract class Operation<T>
-{
-    MyStack<T> myStack;
-    int inputPosition;
+public abstract class Operation<T> {
+	ValueStack<T> valueStack;
+	int inputPosition;
 
-    public Operation(MyStack<T> myStack, int operatorPositon)
-    {
+	public Operation(ValueStack<T> myStack, int operatorPositon) {
 
-        this.myStack = myStack;
-        this.inputPosition=operatorPositon;
-    }
+		this.valueStack = myStack;
+		this.inputPosition = operatorPositon;
+	}
 
-    public MyStack<T> getMyStack()
-    {
-        return myStack;
-    }
+	public ValueStack<T> getValueStack() {
+		return valueStack;
+	}
 
-    public void setMyStack(MyStack<T> myStack)
-    {
-        this.myStack = myStack;
-    }
+	public void setValueStack(ValueStack<T> myStack) {
+		this.valueStack = myStack;
+	}
 
-    public static Operation getOperation(MyStack<Double> myStack, String operator,int inputPosition) throws NoOperationException
-    {
-        switch (operator.toLowerCase())
-        {
-            case "+":
-            case "-":
-            case "*":
-            case "/":
-            case "^":
-                return new BinaryOperation(myStack, operator,inputPosition);
+	public static Operation getOperation(ValueStack<Double> valueStack, String operator, int inputPosition)
+			throws NoOperationException {
+		switch (operator.toLowerCase()) {
+		case "+":
+		case "-":
+		case "*":
+		case "/":
+		case "^":
+			return new BinaryOperation(valueStack, operator, inputPosition);
 
-            case "sqrt":
-                return new UnaryOperation(myStack,inputPosition);
+		case "sqrt":
+			return new UnaryOperation(valueStack, inputPosition);
 
-            case "undo":
-                return new UndoOperation(myStack,inputPosition);
+		case "undo":
+			return new UndoOperation(valueStack, inputPosition);
 
-            case "clear":
-                return new ClearOperation(myStack,inputPosition);
+		case "clear":
+			return new ClearOperation(valueStack, inputPosition);
 
-            default:
+		default:
 
-                if (operator.matches("-?\\d+") || operator.matches("-?\\d+\\.\\d+"))
-                {
-                    return new PushOperation(myStack, operator,inputPosition);
-                }
-                throw new NoOperationException("No such operation exists");
+			if (operator.matches("-?\\d+") || operator.matches("-?\\d+\\.\\d+")) {
+				return new PushOperation(valueStack, operator, inputPosition);
+			}
+			throw new NoOperationException("No such operation exists");
 
-        }
-    }
+		}
+	}
 
-    public void perform() throws InValidOperationException
-    {
-        myStack.saveMe();
-        performOperation();
-    }
+	public void perform() throws InValidOperationException {
+		valueStack.saveMe();
+		performOperation();
+	}
 
-    protected abstract void performOperation() throws InValidOperationException;
+	protected abstract void performOperation() throws InValidOperationException;
 
 }
