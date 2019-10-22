@@ -1,5 +1,6 @@
 RPNCalCulator
 -------
+[![Build Status](https://dev.azure.com/nolantellis0022/Nolan%20Project%201/_apis/build/status/nolantellis.rpn-calculator?branchName=master)](https://dev.azure.com/nolantellis0022/Nolan%20Project%201/_build/latest?definitionId=1&branchName=master)
 
 Assumptions
 ----
